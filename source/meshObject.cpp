@@ -68,25 +68,24 @@ meshObject::~meshObject() {
 }
 
 //TODO: P1bTask5 - Modify to accept lighiting info as arguement.
-void meshObject::draw(const glm::mat4& parentTransform, const glm::mat4& view, const glm::mat4& projection) {
+void meshObject::draw(const glm::mat4& view, const glm::mat4& projection) {
     glUseProgram(shaderProgram);
     
-    // Compute the global transformation matrix for this object
-    glm::mat4 globalTransform = parentTransform * modelMatrix;
-    
     // Compute the MVP matrix
-    glm::mat4 MVP = projection * view * globalTransform;
+    glm::mat4 MVP = projection * view * modelMatrix;
     GLuint matrixID = glGetUniformLocation(shaderProgram, "MVP");
     glUniformMatrix4fv(matrixID, 1, GL_FALSE, glm::value_ptr(MVP));
     
+    //TODO: P1bTask5 - Send lighting info to shader using uniform. May also need to send the model matrix seperatily as a uniform.
+
     // Draw the object
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
     
-    // Recursively call for children, passing the global transformation
+    //Recursively call for children
     for (meshObject* child : children) {
-        child->draw(globalTransform, view, projection);
+        child->draw(view, projection);
     }
 }
 

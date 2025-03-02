@@ -13,7 +13,7 @@ public:
     meshObject(const std::string &objFilePath);
     ~meshObject();
 
-    void draw(const glm::mat4& parentTransform, const glm::mat4& view, const glm::mat4& projection);
+    void draw(const glm::mat4& view, const glm::mat4& projection);
     void drawPicking(const glm::mat4& view, const glm::mat4& projection);
     void translate(const glm::vec3& translation); // Translate the object
     void rotate(float angle, const glm::vec3& axis); // Rotate the object
@@ -25,6 +25,7 @@ public:
     // TODO: P1bTask4 - Create a list of children.
     std::vector<meshObject*> children;
   
+
 
 private:
     GLuint VAO, VBO, EBO;

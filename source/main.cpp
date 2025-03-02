@@ -223,7 +223,7 @@ int main() {
         
         //TODO: P1bTask4 - Draw the robot arm pieces using the hierachy instead. Call the draw function on the root node. The remeaining pieces will be drawn using recursive calls.
         grid.draw(viewMatrix, projectionMatrix);
-        base.draw(glm::mat4(1.0f), viewMatrix, projectionMatrix); 
+        base.draw(viewMatrix, projectionMatrix);
 
         //TODO: P1bTask5 - Pass the lighting info to the draw function.
         
