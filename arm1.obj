@@ -1,0 +1,34 @@
+
+# Bottom Face (Attaches to Base)
+v -0.10  -0.1 -0.10  # Bottom-Left-Back
+v  0.10  -0.1 -0.10  # Bottom-Right-Back
+v  0.10  -0.1  0.10  # Bottom-Right-Front
+v -0.10  -0.1  0.10  # Bottom-Left-Front
+
+# Top Face (End of Arm)
+v -0.10  0.8 -0.10  # Top-Left-Back
+v  0.10  0.8 -0.10  # Top-Right-Back
+v  0.10  0.8  0.10  # Top-Right-Front
+v -0.10  0.8  0.10  # Top-Left-Front
+
+# Bottom Face (Attaches to Base)
+f 1 2 3
+f 1 3 4
+
+# Top Face
+f 5 6 7
+f 5 7 8
+
+# Side Faces
+f 1 2 6
+f 1 6 5
+
+f 2 3 7
+f 2 7 6
+
+f 3 4 8
+f 3 8 7
+
+f 4 1 5
+f 4 5 8
+
