@@ -79,6 +79,10 @@ void meshObject::draw(const glm::mat4& parentTransform, const glm::mat4& view, c
     GLuint matrixID = glGetUniformLocation(shaderProgram, "MVP");
     glUniformMatrix4fv(matrixID, 1, GL_FALSE, glm::value_ptr(MVP));
     
+    // Pass the selection flag to the shader
+    GLuint isSelectedID = glGetUniformLocation(shaderProgram, "isSelected");
+    glUniform1i(isSelectedID, isSelected);
+    
     // Draw the object
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
@@ -171,3 +175,6 @@ void meshObject::loadOBJ(const std::string& filePath, std::vector<GLfloat>& vert
     indices = tempIndices;
 }
 
+void meshObject::setSelected(bool flag) {
+    isSelected = flag;
+}

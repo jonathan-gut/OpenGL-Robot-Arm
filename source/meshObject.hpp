@@ -17,6 +17,7 @@ public:
     void drawPicking(const glm::mat4& view, const glm::mat4& projection);
     void translate(const glm::vec3& translation); // Translate the object
     void rotate(float angle, const glm::vec3& axis); // Rotate the object
+    void setSelected(bool flag);
 
     int getId() const { return id; } // Getter for the ID
     
@@ -32,6 +33,7 @@ private:
     GLuint shaderProgram;
     GLuint pickingShaderProgram;
     glm::mat4 modelMatrix;
+    bool isSelected = false;
 
     static int nextId; // Static counter for unique IDs
     int id;            // ID for this specific object

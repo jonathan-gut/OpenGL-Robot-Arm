@@ -141,18 +141,34 @@ int main() {
         if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
             std::cout << "Picked Base Translation" << std::endl;
             currSelected = 1; // Base (translate)
+            base.setSelected(true);
+            arm1.setSelected(false);
+            joint.setSelected(false);
+            arm2.setSelected(false);
         }
         if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
             std::cout << "Picked Base Rotation" << std::endl;
             currSelected = 2; // Base (rotate)
+            base.setSelected(true);
+            arm1.setSelected(false);
+            joint.setSelected(false);
+            arm2.setSelected(false);
         }
         if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
             std::cout << "Picked Arm 1" << std::endl;
             currSelected = 3; // Arm1 (rotate)
+            base.setSelected(false);
+            arm1.setSelected(true);
+            joint.setSelected(false);
+            arm2.setSelected(false);
         }
         if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
             std::cout << "Picked Arm 2" << std::endl;
             currSelected = 4; // Arm2 (rotate)
+            base.setSelected(false);
+            arm1.setSelected(false);
+            joint.setSelected(false);
+            arm2.setSelected(true);
         }
 
         
