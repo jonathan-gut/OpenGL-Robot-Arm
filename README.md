@@ -1,5 +1,9 @@
 # OpenGL Robot Arm Simulation
 
+## Demo
+
+![Demo](demo.gif)
+
 
 ## Overview
 This project is a **3D Robot Arm Simulation** built using **OpenGL** and **C++**. It demonstrates my ability to work with 3D graphics, hierarchical transformations, and lighting in a real-time rendering environment. The robot arm consists of multiple parts (base, arm1, joint, arm2) that can be manipulated using keyboard inputs, showcasing my understanding of **affine transformations**, **camera control**, and **lighting models**.
