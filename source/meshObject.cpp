@@ -44,8 +44,11 @@ meshObject::meshObject(const std::string &objFilePath) : id(nextId++) { // Assig
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), indices.data(), GL_STATIC_DRAW);
 
     // Vertex attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0); // Position
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat))); // Normal
+    glEnableVertexAttribArray(1);
 
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
@@ -147,30 +150,50 @@ void meshObject::loadOBJ(const std::string& filePath, std::vector<GLfloat>& vert
     }
 
     std::vector<glm::vec3> tempVertices;
-    std::vector<unsigned int> tempIndices;
+    std::vector<glm::vec3> tempNormals;
+    std::vector<GLuint> tempIndices;
     std::string line;
 
     while (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string type;
         ss >> type;
-        if (type == "v") {
+        if (type == "v") { // Vertex position
             glm::vec3 vertex;
             ss >> vertex.x >> vertex.y >> vertex.z;
             tempVertices.push_back(vertex);
-        } else if (type == "f") {
-            unsigned int v1, v2, v3;
-            ss >> v1 >> v2 >> v3;
+        } else if (type == "vn") { // Vertex normal
+            glm::vec3 normal;
+            ss >> normal.x >> normal.y >> normal.z;
+            tempNormals.push_back(normal);
+        } else if (type == "f") { // Face
+            unsigned int v1, v2, v3, n1, n2, n3;
+            char slash;
+            ss >> v1 >> slash >> slash >> n1
+               >> v2 >> slash >> slash >> n2
+               >> v3 >> slash >> slash >> n3;
             tempIndices.push_back(v1 - 1);
             tempIndices.push_back(v2 - 1);
             tempIndices.push_back(v3 - 1);
         }
     }
 
-    for (const auto& v : tempVertices) {
-        vertices.push_back(v.x);
-        vertices.push_back(v.y);
-        vertices.push_back(v.z);
+    // Combine vertices and normals into a single vertex array
+    for (size_t i = 0; i < tempVertices.size(); i++) {
+        vertices.push_back(tempVertices[i].x);
+        vertices.push_back(tempVertices[i].y);
+        vertices.push_back(tempVertices[i].z);
+
+        if (i < tempNormals.size()) {
+            vertices.push_back(tempNormals[i].x);
+            vertices.push_back(tempNormals[i].y);
+            vertices.push_back(tempNormals[i].z);
+        } else {
+            // If no normals are provided, use a default normal (e.g., (0, 1, 0))
+            vertices.push_back(0.0f);
+            vertices.push_back(1.0f);
+            vertices.push_back(0.0f);
+        }
     }
     indices = tempIndices;
 }
