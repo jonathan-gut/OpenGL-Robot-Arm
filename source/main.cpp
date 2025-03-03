@@ -43,13 +43,13 @@ int main() {
     //base.translate(glm::vec3(0, 0, 0));      // Base at the origin
     
     
-    //arm1.translate(glm::vec3(0, 0.5, 0));  // Upper arm above base
-    //arm1.rotate(25.0f,glm::vec3(1,0,0)); // rotate arm1
+    arm1.translate(glm::vec3(0, 0.4, 0));  // Upper arm above base
+    arm1.rotate(25.0f,glm::vec3(1,0,0)); // rotate arm1
     
-    //joint.translate(glm::vec3(0, 1.3, 0.4));   // joint above upper arm
+    joint.translate(glm::vec3(-0.2, 0.9, 0));   // joint above upper arm
 
-    //arm2.translate(glm::vec3(0, 1.3, 0));   // arm2 at the end
-    //arm2.rotate(80.0f,glm::vec3(1,0,0));        // rotate arm2
+    arm2.translate(glm::vec3(0.2, 0.2, 0));   // arm2 at the end
+    arm2.rotate(80.0f,glm::vec3(1,0,0));        // rotate arm2
     
     // TODO: P1bTask4 - Create a hierarchical structure and adjust the relative translations.
     base.children.push_back(&arm1);
@@ -223,7 +223,7 @@ int main() {
         
         //TODO: P1bTask4 - Draw the robot arm pieces using the hierachy instead. Call the draw function on the root node. The remeaining pieces will be drawn using recursive calls.
         grid.draw(viewMatrix, projectionMatrix);
-        base.draw(viewMatrix, projectionMatrix);
+        base.draw(glm::mat4(1.0f), viewMatrix, projectionMatrix);
 
         //TODO: P1bTask5 - Pass the lighting info to the draw function.
         
