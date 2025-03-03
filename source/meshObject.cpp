@@ -100,9 +100,19 @@ void meshObject::translate(const glm::vec3& translation) {
 }
 
 void meshObject::rotate(float angle, const glm::vec3& axis) {
-    // Apply rotation to the model matrix
+    // Get the current translation of the object
+    glm::vec3 translation = glm::vec3(modelMatrix[3]);
+
+    // Translate the object to the global origin
+    modelMatrix = glm::translate(modelMatrix, -translation);
+
+    // Apply the rotation
     modelMatrix = glm::rotate(modelMatrix, glm::radians(angle), axis);
-    
+
+    // Translate the object back to its original position
+    modelMatrix = glm::translate(modelMatrix, translation);
+
+    // Recursively rotate all children
     for (meshObject* child : children) {
         child->rotate(angle, axis);
     }
@@ -139,6 +149,8 @@ void meshObject::loadOBJ(const std::string& filePath, std::vector<GLfloat>& vert
     if (!file.is_open()) {
         std::cerr << "Failed to open OBJ file: " << filePath << std::endl;
         return;
+    } else {
+        std::cout << "Opened OBJ file: " << filePath << std::endl;
     }
 
     std::vector<glm::vec3> tempVertices;
